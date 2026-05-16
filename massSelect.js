@@ -18,7 +18,14 @@ function addCheckboxes() {
                 newCell.appendChild(newCheckbox); 
 			});
 		}
-        
+
 addCheckboxes();
 
+const deleteButton = document.createElement("button");
+deleteButton.innerText = "Remove items?";
+deleteButton.addEventListener("click", function() {
+  alert("Would you like to remove these items from your Watchlist?");
+});
+
+itemTable.append(deleteButton);
 
