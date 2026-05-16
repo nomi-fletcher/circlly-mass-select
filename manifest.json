@@ -3,7 +3,7 @@
   "name": "MassAction",
   "version": "1.0",
 
-  "description": "Adds a red border to all webpages matching mozilla.org.",
+  "description": "Adds a checkbox to item rows to enable bulk delete in *.circlly.com/favorites.",
 
   "content_scripts": [
     {
