@@ -21,11 +21,53 @@ function addCheckboxes() {
 
 addCheckboxes();
 
+
 const deleteButton = document.createElement("button");
 deleteButton.innerText = "Remove items?";
-deleteButton.addEventListener("click", function() {
-  alert("Would you like to remove these items from your Watchlist?");
-});
+
+// Source - https://stackoverflow.com/a/40284425
+// Posted by FlatLander, modified by community. See post 'Timeline' for change history
+// Retrieved 2026-05-16, License - CC BY-SA 4.0
+//modified to use DELETE
+
+function prepareDeletion(ids) {
+
+    let url = window.location.origin;
+
+    return fetch(url, {
+        method: 'DELETE',
+        body: ids
+    }).then(response => response.json())
+}
+
+function massDelete() {
+    let data = [];
+    tableBody.forEach(row => {
+        let checkBox = row.querySelector("input");
+        let link = row.querySelectorAll('[data-method="delete"]');
+        console.log(link);
+        let favItem = link[0].href;
+        if(checkBox.checked){
+            data.push(favItem);
+        }
+    })
+    console.log(data);
+    prepareDeletion(data);
+
+}
+
+deleteButton.addEventListener("click", ()=>{
+  if(confirm("Would you like to remove all selected items from your watchlist?")){
+    console.log("Perform deletion");
+    massDelete();
+    
+} 
+    else{
+        console.log("Deletion aborted");
+    }
+}
+
+);
 
 itemTable.append(deleteButton);
 
