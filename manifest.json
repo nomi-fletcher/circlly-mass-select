@@ -1,14 +1,16 @@
 {
   "manifest_version": 2,
-  "name": "MassAction",
-  "version": "1.0",
+  "name": "MassDelete",
+  "version": "2.0",
 
   "description": "Adds a checkbox to item rows to enable bulk delete in *.circlly.com/favorites.",
 
   "content_scripts": [
     {
-      "matches": ["*://*.circlly.com/favorites"],
+      "matches": ["*://*.circlly.com/favorites*"],
       "js": ["massSelect.js"]
     }
-  ]
+  ],
+
+  "permissions" : ["*://*.circlly.com/favorites"]
 }

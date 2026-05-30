@@ -9,6 +9,9 @@ itemHeader.appendChild(newHeading);
 
 const tableBody = itemTable.querySelectorAll("tbody tr");
 
+var authToken = document.querySelector('meta[name="csrf-token"]').content;
+var userAgent = Navigation.userAgent;
+
 function addCheckboxes() {
 			tableBody.forEach(row => {
                 let newCell = document.createElement("td");
@@ -25,19 +28,56 @@ addCheckboxes();
 const deleteButton = document.createElement("button");
 deleteButton.innerText = "Remove items?";
 
-// Source - https://stackoverflow.com/a/40284425
-// Posted by FlatLander, modified by community. See post 'Timeline' for change history
-// Retrieved 2026-05-16, License - CC BY-SA 4.0
-//modified to use DELETE
+//the following code was generated using Google's AI overview and adapted
+/*const urls = ['https://a.com', 'https://b.com'];
+const requests = urls.map(url => 
+  fetch(url, { method: 'POST', body: JSON.stringify({ key: 'value' }) })
+);
 
-function prepareDeletion(ids) {
+Promise.all(requests)
+  .then(responses => Promise.all(responses.map(res => res.json())))
+  .then(data => console.log(data))
+  .catch(err => console.error(err));
+*/
 
-    let url = window.location.origin;
+function prepareDeletion(ids, authToken, userAgent){
 
-    return fetch(url, {
-        method: 'DELETE',
-        body: ids
-    }).then(response => response.json())
+    var requests = ids.map(id => {
+         fetch(id, {
+            "credentials": "include",
+            "headers": {
+                "User-Agent": `${userAgent}`,
+                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+                "Accept-Language": "en-US,en;q=0.9",
+                "Content-Type": "application/x-www-form-urlencoded",
+                "Connection" : "keep-alive",
+                "Host" : "egl.circlly.com",
+                "Origin" : "https://egl.circlly.com",
+                "Sec-GPC": "1",
+                "Upgrade-Insecure-Requests": "1",
+                "Sec-Fetch-Dest": "document",
+                "Sec-Fetch-Mode": "navigate",
+                "Sec-Fetch-Site": "same-origin",
+                "Sec-Fetch-User": "?1",
+                "Priority": "u=0, i",
+                "Pragma": "no-cache",
+                "Cache-Control": "no-cache"
+            },
+            "referrer": "https://egl.circlly.com/favorites",
+            "body": {
+                "_method":"delete",
+                "authenticity_token" : `${authToken}`
+            },
+            "method": "POST",
+            "mode": "cors"
+        });
+    })
+
+    console.log(typeof requests[0]);
+
+    Promise.allSettled(requests)
+        .then(result => console.log(result));
+
 }
 
 function massDelete() {
@@ -52,7 +92,7 @@ function massDelete() {
         }
     })
     console.log(data);
-    prepareDeletion(data);
+    prepareDeletion(data, authToken, userAgent);
 
 }
 
