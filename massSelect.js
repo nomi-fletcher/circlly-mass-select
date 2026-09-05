@@ -1,6 +1,6 @@
 const itemTable = document.querySelector('table');
 const site = window.location.hostname;
-console.log(site)
+
 //name of class for the table of items is "auction-table watchlist table table-hover"
 //the below code adds a column to the table that creates checkboxes next to each item
 //and creates a button to initiate a deletion of the selected items
@@ -75,7 +75,7 @@ async function prepareDeletion(ids, authToken) {
     return results;
 }
 
-//finds all items that have been selected for deletion and executes deletion
+//finds all items that have been selected for deletion and executes deletion and reloads page
 function massDelete() {
     let data = [];
     tableBody.forEach(row => {
@@ -88,7 +88,8 @@ function massDelete() {
         }
     })
     console.log(data);
-    prepareDeletion(data, authToken, userAgent);
+    prepareDeletion(data, authToken, userAgent).then(window.location.reload());
+    
 
 }
 
