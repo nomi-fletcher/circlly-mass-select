@@ -43,7 +43,7 @@ Promise.all(requests)
 function prepareDeletion(ids, authToken, userAgent){
 
     var requests = ids.map(id => {
-         fetch(id, {
+         return fetch(id, {
             "credentials": "include",
             "headers": {
                 "User-Agent": `${userAgent}`,
