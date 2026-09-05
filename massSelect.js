@@ -1,5 +1,6 @@
 const itemTable = document.querySelector('table');
-
+const site = window.location.hostname;
+console.log(site)
 //name of class for the table of items is "auction-table watchlist table table-hover"
 //the below code adds a column to the table that creates checkboxes next to each item
 //and creates a button to initiate a deletion of the selected items
@@ -41,11 +42,11 @@ async function prepareDeletion(ids, authToken) {
             headers: {
                 "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
                 "Content-Type": "application/x-www-form-urlencoded",
-                "Origin": "https://egl.circlly.com",
+                "Origin": site,
                 "Cache-Control": "no-cache",
                 "Pragma": "no-cache"
             },
-            referrer: "https://egl.circlly.com/favorites",
+            referrer: `https://${site}/favorites`,
             body: new URLSearchParams({
                 _method: "delete",
                 authenticity_token: authToken
@@ -80,7 +81,7 @@ function massDelete() {
     tableBody.forEach(row => {
         let checkBox = row.querySelector("input");
         let link = row.querySelectorAll('[data-method="delete"]');
-        console.log(link);
+        //console.log(link);
         let favItem = link[0].href;
         if(checkBox.checked){
             data.push(favItem);
