@@ -1,5 +1,5 @@
 {
-  "manifest_version": 1,
+  "manifest_version": 3,
   "name": "MassSelect",
   "version": "1.0",
 
@@ -16,5 +16,18 @@
     }
   ],
 
-  "permissions" : ["*://*.circlly.com/favorites"]
+  "permissions" : ["*://*.circlly.com/favorites"],
+
+  "browser_specific_settings": {
+  "gecko": {
+    "id": "@circlly-mass-select.nomi",
+    "data_collection_permissions": {
+      "required": [
+        "websiteActivity",
+        "websiteContent"
+      ]
+    },
+    "strict_min_version": "140.0"
+          }
+  }
 }
